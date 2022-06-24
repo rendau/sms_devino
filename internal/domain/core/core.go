@@ -6,13 +6,15 @@ import (
 )
 
 type St struct {
-	lg    logger.Lite
-	httpc httpc.HttpC
+	lg         logger.Lite
+	httpc      httpc.HttpC
+	senderName string
 }
 
-func New(lg logger.Lite, httpc httpc.HttpC) *St {
+func New(lg logger.Lite, httpc httpc.HttpC, senderName string) *St {
 	return &St{
-		lg:    lg,
-		httpc: httpc,
+		lg:         lg,
+		httpc:      httpc,
+		senderName: senderName,
 	}
 }

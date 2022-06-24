@@ -1,9 +1,8 @@
 package cns
 
 const (
-	SmsSenderName = "Mechta.kz"
-	SmsValidity   = 1800
-	SmsPriority   = 3
+	SmsValidity = 1800
+	SmsPriority = 3
 )
 
 const (

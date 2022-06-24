@@ -10,8 +10,6 @@ jobs:
     env:
       OWNER: rendau
       IMAGE: sms_devino
-      SERVER_URI: user@zeon.mechta.market
-      SERVICE_NAME: sms_sms
     steps:
       - uses: actions/checkout@v2
 

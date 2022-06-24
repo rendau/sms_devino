@@ -19,7 +19,7 @@ func (c *St) Send(obj *entities.SendReqSt) (*entities.SendRepSt, error) {
 	reqObj := &entities.DevinoSendReqSt{
 		Messages: []entities.DevinoSendReqMessageSt{
 			{
-				From:     cns.SmsSenderName,
+				From:     c.senderName,
 				To:       obj.To,
 				Text:     obj.Text,
 				Validity: cns.SmsValidity,

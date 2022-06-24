@@ -44,6 +44,7 @@ func Execute() {
 				Password: conf.DevinoPassword,
 			},
 		}),
+		conf.SenderName,
 	)
 
 	// START
