@@ -37,10 +37,6 @@ func Execute() {
 		},
 		BaseUrl:       "https://api.devino.online",
 		BaseLogPrefix: "Devino: ",
-		BasicAuthCreds: &httpc.BasicAuthCredsSt{
-			Username: conf.DevinoUsername,
-			Password: conf.DevinoPassword,
-		},
 	}
 
 	if conf.DevinoApiKey != "" {
