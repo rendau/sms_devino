@@ -30,7 +30,7 @@ func (c *St) Send(obj *entities.SendReqSt) (*entities.SendRepSt, error) {
 
 	repObj := &entities.DevinoSendRepSt{}
 
-	repBytes, err := c.httpc.SendJsonRecvJson(reqObj, repObj, httpc.OptionsSt{
+	repBytes, _, err := c.httpc.SendJsonRecvJson(reqObj, repObj, nil, httpc.OptionsSt{
 		Method:        "POST",
 		Path:          "sms/messages",
 		RetryCount:    1,

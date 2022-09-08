@@ -12,6 +12,7 @@ var conf = struct {
 	HttpCors       bool   `mapstructure:"HTTP_CORS"`
 	DevinoUsername string `mapstructure:"DEVINO_USERNAME"`
 	DevinoPassword string `mapstructure:"DEVINO_PASSWORD"`
+	DevinoApiKey   string `mapstructure:"DEVINO_API_KEY"`
 	SenderName     string `mapstructure:"SENDER_NAME"`
 }{}
 

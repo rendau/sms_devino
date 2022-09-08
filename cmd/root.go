@@ -28,22 +28,33 @@ func Execute() {
 
 	app.lg = dopLoggerZap.New(conf.LogLevel, conf.Debug)
 
+	httpcOptions := httpc.OptionsSt{
+		Client: &http.Client{
+			Timeout: 20 * time.Second,
+			Transport: &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			},
+		},
+		BaseUrl:       "https://api.devino.online",
+		BaseLogPrefix: "Devino: ",
+		BasicAuthCreds: &httpc.BasicAuthCredsSt{
+			Username: conf.DevinoUsername,
+			Password: conf.DevinoPassword,
+		},
+	}
+
+	if conf.DevinoApiKey != "" {
+		httpcOptions.Headers.Set("Authorization", "Key "+conf.DevinoApiKey)
+	} else {
+		httpcOptions.BasicAuthCreds = &httpc.BasicAuthCredsSt{
+			Username: conf.DevinoUsername,
+			Password: conf.DevinoPassword,
+		}
+	}
+
 	app.core = core.New(
 		app.lg,
-		httpclient.New(app.lg, httpc.OptionsSt{
-			Client: &http.Client{
-				Timeout: 20 * time.Second,
-				Transport: &http.Transport{
-					TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-				},
-			},
-			BaseUrl:       "https://api.devino.online",
-			BaseLogPrefix: "Devino: ",
-			BasicAuthCreds: &httpc.BasicAuthCredsSt{
-				Username: conf.DevinoUsername,
-				Password: conf.DevinoPassword,
-			},
-		}),
+		httpclient.New(app.lg, httpcOptions),
 		conf.SenderName,
 	)
 

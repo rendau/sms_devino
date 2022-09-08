@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.8.1
-	github.com/rendau/dop v1.1.11
+	github.com/rendau/dop v1.1.12
 	github.com/spf13/viper v1.12.0
 )
 
