@@ -44,7 +44,9 @@ func Execute() {
 	}
 
 	if conf.DevinoApiKey != "" {
-		httpcOptions.Headers.Set("Authorization", "Key "+conf.DevinoApiKey)
+		httpcOptions.Headers = http.Header{
+			"Authorization": {"Key " + conf.DevinoApiKey},
+		}
 	} else {
 		httpcOptions.BasicAuthCreds = &httpc.BasicAuthCredsSt{
 			Username: conf.DevinoUsername,
