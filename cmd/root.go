@@ -40,7 +40,7 @@ func Execute() {
 	}
 
 	if conf.DevinoApiKey != "" {
-		httpcOptions.Headers = http.Header{
+		httpcOptions.BaseHeaders = http.Header{
 			"Authorization": {"Key " + conf.DevinoApiKey},
 		}
 	} else {
