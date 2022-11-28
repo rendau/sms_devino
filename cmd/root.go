@@ -35,12 +35,12 @@ func Execute() {
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 			},
 		},
-		BaseUrl:       "https://api.devino.online",
-		BaseLogPrefix: "Devino: ",
+		Uri:       "https://api.devino.online",
+		LogPrefix: "Devino: ",
 	}
 
 	if conf.DevinoApiKey != "" {
-		httpcOptions.BaseHeaders = http.Header{
+		httpcOptions.Headers = http.Header{
 			"Authorization": {"Key " + conf.DevinoApiKey},
 		}
 	} else {
@@ -52,7 +52,7 @@ func Execute() {
 
 	app.core = core.New(
 		app.lg,
-		httpclient.New(app.lg, httpcOptions),
+		httpclient.New(app.lg, &httpcOptions),
 		conf.SenderName,
 	)
 

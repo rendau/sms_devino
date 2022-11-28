@@ -30,25 +30,28 @@ func (c *St) Send(obj *entities.SendReqSt) (*entities.SendRepSt, error) {
 
 	repObj := &entities.DevinoSendRepSt{}
 
-	repBytes, _, err := c.httpc.SendJsonRecvJson(reqObj, repObj, nil, httpc.OptionsSt{
+	resp, err := c.httpc.Send(&httpc.OptionsSt{
 		Method:        "POST",
-		Path:          "sms/messages",
+		Uri:           "sms/messages",
 		RetryCount:    1,
 		RetryInterval: 2 * time.Second,
+
+		ReqObj: reqObj,
+		RepObj: repObj,
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	if len(repObj.Result) != 1 {
-		c.lg.Errorw("Fail to send SMS, wrong msg-count in reply", nil, "rep_body", string(repBytes))
+		resp.LogError("Fail to send SMS, wrong msg-count in reply", nil)
 		return nil, dopErrs.ServiceNA
 	}
 
 	resultItem := repObj.Result[0]
 
 	if resultItem.Code != cns.DevinoMessageStatusCodeOk {
-		c.lg.Errorw("Fail to send SMS", nil, "reply_code", resultItem.Code, "rep_body", string(repBytes))
+		resp.LogError("Fail to send SMS", nil, "reply_code", resultItem.Code)
 		if resultItem.Code == cns.DevinoMessageStatusCodeRejected {
 			return nil, errs.FailToSend
 		}
