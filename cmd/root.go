@@ -11,6 +11,7 @@ import (
 	dopLoggerZap "github.com/rendau/dop/adapters/logger/zap"
 	dopServerHttps "github.com/rendau/dop/adapters/server/https"
 	"github.com/rendau/dop/dopTools"
+
 	"github.com/rendau/sms_devino/internal/adapters/server/rest"
 	"github.com/rendau/sms_devino/internal/domain/core"
 )
@@ -32,7 +33,8 @@ func Execute() {
 		Client: &http.Client{
 			Timeout: 20 * time.Second,
 			Transport: &http.Transport{
-				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+				TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
+				MaxIdleConnsPerHost: 300,
 			},
 		},
 		Uri:       "https://api.devino.online",
